@@ -10,7 +10,10 @@ tuplist = []
 for game in data:
     title = game['title']
     rating = game['rating']
-    price = game['price']
+    try:
+        price = float(game['price'][1:])
+    except TypeError:
+        continue
     try:
         group = math.floor( float(rating) / 10 )
     except ValueError:
