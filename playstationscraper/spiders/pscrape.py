@@ -22,6 +22,9 @@ class PscrapeSpider(scrapy.Spider):
 
     def parseMetacritic(self, response, title, price):
         rating = 'unknown'
-        if rate := response.css('span.metascore_w::text').get():
-            rating = rate
+        for result in response.css('div.result_wrap'):
+            rtitle = result.css('h3.product_title a::text').get().strip()
+            rate = result.css('span.metascore_w::text').get()
+            if rtitle == title:
+                rating = rate
         yield { 'title' : title, 'rating' : rating, 'price' : price }
