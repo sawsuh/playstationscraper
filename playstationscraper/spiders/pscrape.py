@@ -27,4 +27,5 @@ class PscrapeSpider(scrapy.Spider):
             rate = result.css('span.metascore_w::text').get()
             if rtitle == title:
                 rating = rate
+                break
         yield { 'title' : title, 'rating' : rating, 'price' : price }
