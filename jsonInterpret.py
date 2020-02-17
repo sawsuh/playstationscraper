@@ -11,11 +11,14 @@ for game in data:
     title = game['title']
     rating = game['rating']
     price = game['price']
-    group = math.floor( float(price[1:]) / 20 )
-    tuplist.append((f'{title} - {price} ({rating})', rating, group))
+    try:
+        group = math.floor( float(rating) / 10 )
+    except ValueError:
+        continue
+    tuplist.append((f'{title} - {price} ({rating})', price, group))
 
-tuplist.sort(key=lambda x : x[1], reverse=True)
-tuplist.sort(key=lambda x : x[2])
+tuplist.sort(key=lambda x : x[1])
+tuplist.sort(key=lambda x : x[2], reverse=True)
 
 for item, rating, group in tuplist:
     if rating in ['tbd', 'unknown']:
